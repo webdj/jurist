@@ -1,7 +1,7 @@
 {
-  "name": "tabris-getting-started",
-  "description": "Tabris.js - Hello, World!",
-  "main": "hello.js",
+  "name": "jurist",
+  "description": "Юрист",
+  "main": "main.js",
   "dependencies": {
     "tabris": "1.1.0"
   }
