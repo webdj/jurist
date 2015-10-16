@@ -1,6 +1,7 @@
 var PAGE_MARGIN = 15;
 
 var Category = require("./modules/category");
+console.log(Category);
 
 var drawer = tabris.create("Drawer").append(tabris.create("PageSelector"));
 
@@ -35,7 +36,6 @@ tabris.create("Action", {
 var categoryView = tabris.create("CollectionView", {
     layoutData: {left: 0, top: 0, right: 0, bottom: 0},
     itemHeight: 80,
-    refreshEnabled: true,
     initializeCell: function (cell) {
         var imageView = tabris.create("ImageView", {
             layoutData: {left: PAGE_MARGIN, centerY: 0, width: 32, height: 48},
@@ -52,17 +52,13 @@ var categoryView = tabris.create("CollectionView", {
             textColor: "#7b7b7b",
             font: "18px"
         }).appendTo(cell);
-        cell.on("change:item", function (widget, category) {
-            imageView.set("image", '/images/category/' + category.image);
-            titleTextView.set("text", category.name);
-            authorTextView.set("text", category.count);
+        cell.on("change:item", function (widget, item) {
+            imageView.set("image", '/images/category/' + item.image);
+            titleTextView.set("text", item.name);
+            authorTextView.set("text", item.count);
         });
     }
-}).on("refresh", function () {
-    Category.loadRoot(categoryView);
-}).on("select", function () {
-    createBookPage(value).open();
-}).appendTo(page);
+}).on("select", Category.itemSelect.bind(Category)).appendTo(page);
 
 Category.loadRoot(categoryView);
 
